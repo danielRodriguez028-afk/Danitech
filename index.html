@@ -541,5 +541,85 @@
 })();
 </script>
 
+<section id="generador-qr" style="max-width:700px;margin:30px auto;padding:20px;background:#101e32;color:#f3f7ff;border:1px solid #243751;border-radius:18px;font-family:Arial,sans-serif;">
+  <h2>📱 Generador de códigos QR</h2>
+  <p style="color:#a8b7ce;">Convierte un enlace o texto en un código QR para compartirlo.</p>
+
+  <label for="qr-text">Escribe un enlace o texto:</label>
+  <textarea id="qr-text" rows="3" maxlength="1500" placeholder="https://ejemplo.com" style="box-sizing:border-box;width:100%;padding:12px;margin:10px 0;background:#07111f;color:white;border:1px solid #38506e;border-radius:8px;"></textarea>
+
+  <button id="create-qr" type="button" style="padding:12px 16px;background:#39a9ff;color:#06111e;border:0;border-radius:9px;font-weight:bold;">
+    Crear código QR
+  </button>
+
+  <div id="qr-result" style="display:none;margin-top:20px;text-align:center;">
+    <div id="qr-image" style="display:inline-block;background:white;padding:12px;border-radius:8px;"></div>
+    <p style="color:#a8b7ce;">Escanea el código con la cámara de tu celular.</p>
+    <a id="qr-download" download="danitech-qr.png" style="display:inline-block;padding:12px 16px;background:#39e6b5;color:#06111e;border-radius:9px;text-decoration:none;font-weight:bold;">
+      Descargar código QR
+    </a>
+  </div>
+
+  <p id="qr-message" aria-live="polite" style="color:#a8b7ce;"></p>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function () {
+  const input = document.getElementById("qr-text");
+  const button = document.getElementById("create-qr");
+  const result = document.getElementById("qr-result");
+  const imageBox = document.getElementById("qr-image");
+  const download = document.getElementById("qr-download");
+  const message = document.getElementById("qr-message");
+
+  if (!input || !button || !result || !imageBox || !download || !message) return;
+
+  button.addEventListener("click", function () {
+    const value = input.value.trim();
+
+    if (!value) {
+      message.textContent = "Escribe primero un enlace o texto.";
+      return;
+    }
+
+    if (typeof QRCode === "undefined") {
+      message.textContent = "No se pudo cargar el generador. Revisa tu conexión e inténtalo de nuevo.";
+      return;
+    }
+
+    imageBox.innerHTML = "";
+    result.style.display = "block";
+    message.textContent = "Generando código QR...";
+
+    try {
+      new QRCode(imageBox, {
+        text: value,
+        width: 220,
+        height: 220,
+        correctLevel: QRCode.CorrectLevel.M
+      });
+
+      message.textContent = "¡Código QR creado! Puedes descargarlo.";
+      setTimeout(function () {
+        const qrCanvas = imageBox.querySelector("canvas");
+        const qrImg = imageBox.querySelector("img");
+        const dataUrl = qrCanvas ? qrCanvas.toDataURL("image/png") : (qrImg ? qrImg.src : "");
+
+        if (dataUrl) {
+          download.href = dataUrl;
+          download.style.display = "inline-block";
+        } else {
+          message.textContent = "El código se creó, pero no se pudo preparar la descarga.";
+          download.style.display = "none";
+        }
+      }, 300);
+    } catch (error) {
+      message.textContent = "No se pudo crear el código. Inténtalo otra vez.";
+    }
+  });
+})();
+</script>
+
 </body>
 </html>

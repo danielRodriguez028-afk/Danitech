@@ -1,0 +1,469 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="DaniTech: guías sencillas para solucionar problemas de teléfonos, aplicaciones, batería, Wi-Fi y almacenamiento.">
+  <title>DaniTech | Tu ayuda tecnológica</title>
+
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: #101e32;
+      --blue: #39a9ff;
+      --green: #39e6b5;
+      --text: #f3f7ff;
+      --muted: #a8b7ce;
+      --border: #243751;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      background: #091525;
+    }
+
+    nav {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: var(--blue);
+    }
+
+    nav a {
+      color: var(--muted);
+      font-size: 13px;
+      margin-left: 10px;
+    }
+
+    .hero {
+      max-width: 1000px;
+      margin: auto;
+      padding: 65px 20px 45px;
+      text-align: center;
+    }
+
+    .tag {
+      display: inline-block;
+      color: var(--green);
+      border: 1px solid #235d56;
+      background: #102b30;
+      padding: 5px 12px;
+      border-radius: 30px;
+      font-size: 12px;
+    }
+
+    h1 {
+      font-size: clamp(36px, 9vw, 62px);
+      line-height: 1.08;
+      margin: 20px 0;
+      letter-spacing: -2px;
+    }
+
+    h1 span {
+      color: var(--blue);
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: 0 auto 25px;
+      color: var(--muted);
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 800;
+      background: var(--blue);
+      color: #06111e;
+      border: 0;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    section {
+      max-width: 1000px;
+      margin: auto;
+      padding: 28px 20px;
+    }
+
+    h2 {
+      font-size: 27px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-top: 0;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 22px;
+      border-radius: 18px;
+    }
+
+    label {
+      display: block;
+      margin: 18px 0 7px;
+      font-weight: 700;
+    }
+
+    select {
+      width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      background: #091525;
+      color: white;
+      border: 1px solid #38506e;
+      font-size: 16px;
+    }
+
+    .panel .button {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    #result {
+      display: none;
+      margin-top: 20px;
+      padding: 16px;
+      background: #0a1726;
+      border: 1px solid #2c5874;
+      border-radius: 12px;
+    }
+
+    #result h3 {
+      color: var(--green);
+      margin-top: 0;
+    }
+
+    #result li {
+      margin-bottom: 10px;
+      color: #dce8f8;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .emoji {
+      font-size: 28px;
+    }
+
+    .card h3 {
+      margin: 8px 0;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .notice {
+      background: #172638;
+      border-left: 4px solid var(--green);
+      padding: 15px;
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 35px;
+    }
+
+    footer strong {
+      color: var(--blue);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="#inicio" class="logo">Dani<span>Tech</span></a>
+      <div>
+        <a href="#diagnostico">Soluciones</a>
+        <a href="#guias">Guías</a>
+        <a href="#nosotros">Acerca de</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <span class="tag">TECNOLOGÍA MÁS SENCILLA</span>
+
+      <h1>Tu teléfono tiene solución.<br>
+        <span>Encuéntrala aquí.</span>
+      </h1>
+
+      <p>
+        Bienvenido a DaniTech, tu espacio para aprender a solucionar
+        problemas comunes de teléfonos, aplicaciones, batería,
+        conexión a internet y mucho más.
+      </p>
+
+      <a class="button" href="#diagnostico">
+        Encontrar una solución →
+      </a>
+    </section>
+
+    <section id="diagnostico">
+      <h2>🔎 Diagnóstico interactivo</h2>
+      <p class="subtitle">
+        Selecciona tu dispositivo y cuéntanos qué está pasando.
+      </p>
+
+      <div class="panel">
+        <label for="device">¿Qué dispositivo utilizas?</label>
+
+        <select id="device">
+          <option value="iPhone">iPhone / iOS</option>
+          <option value="Android">Android</option>
+        </select>
+
+        <label for="problem">¿Cuál es el problema?</label>
+
+        <select id="problem">
+          <option value="lento">Mi teléfono está lento</option>
+          <option value="bateria">La batería dura poco</option>
+          <option value="wifi">No funciona el Wi-Fi</option>
+          <option value="apps">Una aplicación falla</option>
+          <option value="espacio">Tengo poco almacenamiento</option>
+        </select>
+
+        <button class="button" id="diagnose">
+          Buscar solución
+        </button>
+
+        <div id="result" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="guias">
+      <h2>📚 Guías tecnológicas</h2>
+      <p class="subtitle">
+        Aprende a cuidar y aprovechar mejor tus dispositivos.
+      </p>
+
+      <div class="grid">
+        <article class="card">
+          <div class="emoji">🔋</div>
+          <h3>Cuidado de la batería</h3>
+          <p>
+            Aprende hábitos que ayudan a cuidar la batería
+            y a identificar aplicaciones que consumen mucha energía.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="emoji">📶</div>
+          <h3>Problemas de conexión</h3>
+          <p>
+            Revisa el Wi-Fi, comprueba la conexión y descubre
+            qué hacer cuando internet deja de funcionar.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="emoji">🛠️</div>
+          <h3>Aplicaciones con errores</h3>
+          <p>
+            Conoce formas seguras de actualizar aplicaciones,
+            reiniciarlas y resolver fallos comunes.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="emoji">💾</div>
+          <h3>Libera almacenamiento</h3>
+          <p>
+            Aprende a revisar el espacio ocupado y a liberar
+            almacenamiento sin borrar archivos importantes por error.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="nosotros">
+      <h2>💡 ¿Qué es DaniTech?</h2>
+
+      <div class="panel">
+        <p>
+          DaniTech es un proyecto tecnológico pensado para explicar
+          soluciones digitales con palabras sencillas, instrucciones
+          prácticas y herramientas fáciles de utilizar.
+        </p>
+
+        <p>
+          Nuestro objetivo es ayudarte a comprender mejor tu teléfono
+          y resolver problemas frecuentes paso a paso.
+        </p>
+
+        <div class="notice">
+          <strong>Tu seguridad importa.</strong>
+          Nunca compartas contraseñas, códigos de verificación,
+          datos bancarios ni información privada para solucionar
+          un problema tecnológico.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>DaniTech</strong> · Tecnología para todos.</p>
+    <p>Proyecto independiente de ayuda tecnológica.</p>
+  </footer>
+
+  <script>
+    const guides = {
+      lento: {
+        title: "Cómo mejorar el rendimiento",
+        steps: [
+          "Reinicia tu teléfono.",
+          "Cierra las aplicaciones que estén fallando.",
+          "Revisa si hay actualizaciones disponibles.",
+          "Comprueba que tengas espacio de almacenamiento libre."
+        ]
+      },
+
+      bateria: {
+        title: "Cómo revisar el consumo de batería",
+        steps: [
+          "Revisa qué aplicaciones consumen más batería en Ajustes.",
+          "Activa el modo de bajo consumo si lo necesitas.",
+          "Reduce el brillo cuando sea conveniente.",
+          "Si la batería se calienta demasiado, deja de usar el dispositivo y permite que se enfríe."
+        ]
+      },
+
+      wifi: {
+        title: "Cómo solucionar problemas de Wi-Fi",
+        steps: [
+          "Comprueba que el Wi-Fi esté activado.",
+          "Activa el modo avión unos segundos y desactívalo.",
+          "Reinicia el teléfono y, si puedes, el router.",
+          "Comprueba si otros dispositivos pueden conectarse a la misma red."
+        ]
+      },
+
+      apps: {
+        title: "Cómo solucionar errores de aplicaciones",
+        steps: [
+          "Cierra y vuelve a abrir la aplicación.",
+          "Comprueba tu conexión a internet.",
+          "Busca actualizaciones en la tienda oficial.",
+          "Si sigue fallando, consulta la ayuda oficial antes de borrar datos."
+        ]
+      },
+
+      espacio: {
+        title: "Cómo liberar almacenamiento",
+        steps: [
+          "Revisa el almacenamiento desde los ajustes del teléfono.",
+          "Elimina descargas que ya no necesites.",
+          "Revisa los archivos grandes antes de borrarlos.",
+          "Haz una copia de seguridad antes de eliminar recuerdos importantes."
+        ]
+      }
+    };
+
+    const device = document.getElementById("device");
+    const problem = document.getElementById("problem");
+    const result = document.getElementById("result");
+    const diagnose = document.getElementById("diagnose");
+
+    diagnose.addEventListener("click", function () {
+      const guide = guides[problem.value];
+
+      result.replaceChildren();
+
+      const title = document.createElement("h3");
+      title.textContent = guide.title;
+      result.appendChild(title);
+
+      const intro = document.createElement("p");
+      intro.textContent =
+        "Dispositivo seleccionado: " + device.value;
+      result.appendChild(intro);
+
+      const list = document.createElement("ol");
+
+      guide.steps.forEach(function (step) {
+        const item = document.createElement("li");
+        item.textContent = step;
+        list.appendChild(item);
+      });
+
+      result.appendChild(list);
+
+      const note = document.createElement("p");
+      note.textContent =
+        "Nota: los nombres de los ajustes pueden variar según el modelo y la versión del sistema.";
+      result.appendChild(note);
+
+      result.style.display = "block";
+      result.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+    });
+  </script>
+</body>
+</html>

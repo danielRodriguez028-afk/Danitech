@@ -465,5 +465,81 @@
       });
     });
   </script>
+  
+<section id="herramienta-password" style="max-width:700px;margin:30px auto;padding:20px;background:#101e32;color:#f3f7ff;border:1px solid #243751;border-radius:18px;font-family:Arial,sans-serif;">
+  <h2>🔐 Generador de contraseñas</h2>
+  <p style="color:#a8b7ce;">Crea una contraseña aleatoria directamente en tu navegador.</p>
+
+  <label for="password-length">Longitud de la contraseña:</label>
+  <select id="password-length" style="display:block;width:100%;padding:12px;margin:10px 0;background:#07111f;color:white;border:1px solid #38506e;border-radius:8px;">
+    <option value="12">12 caracteres</option>
+    <option value="16" selected>16 caracteres</option>
+    <option value="20">20 caracteres</option>
+    <option value="24">24 caracteres</option>
+  </select>
+
+  <button id="generate-password" type="button" style="padding:12px 16px;background:#39a9ff;color:#06111e;border:0;border-radius:9px;font-weight:bold;">
+    Generar contraseña
+  </button>
+
+  <div id="password-result" style="display:none;margin-top:16px;">
+    <label for="generated-password">Tu contraseña:</label>
+    <input id="generated-password" type="text" readonly autocomplete="off" style="box-sizing:border-box;width:100%;padding:12px;background:#07111f;color:#39e6b5;border:1px solid #38506e;border-radius:8px;font-size:16px;">
+    <button id="copy-password" type="button" style="margin-top:10px;padding:10px 14px;background:#39e6b5;color:#06111e;border:0;border-radius:9px;font-weight:bold;">
+      Copiar contraseña
+    </button>
+    <p id="password-message" aria-live="polite" style="color:#a8b7ce;"></p>
+  </div>
+</section>
+
+<script>
+(function () {
+  const generateButton = document.getElementById("generate-password");
+  const copyButton = document.getElementById("copy-password");
+  const lengthSelect = document.getElementById("password-length");
+  const result = document.getElementById("password-result");
+  const output = document.getElementById("generated-password");
+  const message = document.getElementById("password-message");
+
+  if (!generateButton || !copyButton || !lengthSelect || !result || !output || !message) {
+    return;
+  }
+
+  generateButton.addEventListener("click", function () {
+    const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%&*_-";
+    const length = Number(lengthSelect.value);
+    const random = new Uint32Array(length);
+    const limit = Math.floor(4294967296 / alphabet.length) * alphabet.length;
+    let password = "";
+
+    for (let i = 0; i < length; i++) {
+      let value;
+
+      do {
+        crypto.getRandomValues(random.subarray(i, i + 1));
+        value = random[i];
+      } while (value >= limit);
+
+      password += alphabet[value % alphabet.length];
+    }
+
+    output.value = password;
+    result.style.display = "block";
+    message.textContent = "Guárdala en un lugar seguro y no la compartas.";
+  });
+
+  copyButton.addEventListener("click", async function () {
+    try {
+      await navigator.clipboard.writeText(output.value);
+      message.textContent = "¡Contraseña copiada!";
+    } catch (error) {
+      output.focus();
+      output.select();
+      message.textContent = "Si no se copió, mantén pulsado el texto y selecciona Copiar.";
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
